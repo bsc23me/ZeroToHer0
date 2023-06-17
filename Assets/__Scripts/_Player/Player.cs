@@ -12,11 +12,14 @@ public class Player : MonoBehaviour
 
     bool canFire;
 
+    private Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
         movement = GetComponent<Movement>();
         canFire = true;
+        cam = Camera.main;
     }
 
     // Update is called once per frame
@@ -40,6 +43,18 @@ public class Player : MonoBehaviour
     void CanFire()
     {
         canFire = true;
+    }
+
+    void OnBecameInvisible()
+    {
+        Vector2 direction = Vector2.zero;
+        Vector3 pos = transform.position;
+        Vector3 camPos = cam.transform.position;
+        if (Mathf.Abs(pos.x - camPos.x) > Mathf.Abs(pos.y - camPos.y))
+            direction.x = Mathf.Sign(pos.x - camPos.x);
+        else
+            direction.y = Mathf.Sign(pos.y - camPos.y);
+        cam.GetComponent<CameraMovement>().Move(direction);
     }
 
 }
