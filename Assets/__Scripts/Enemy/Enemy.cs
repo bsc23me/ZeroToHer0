@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 target = player.transform.position - transform.position;
         if (target.magnitude > meleeDist)
-            movement.Move(target.normalized * Time.deltaTime);
+            movement.Move(target.normalized);
         else
             Attack();
 
