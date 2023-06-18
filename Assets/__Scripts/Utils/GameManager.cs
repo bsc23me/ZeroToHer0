@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         foreach(Objective obj in objectives)
         {
-            if (!obj.IsComplete)
+            if (!obj.IsComplete && !obj.IsOptional)
                 return;
         }
         Win();

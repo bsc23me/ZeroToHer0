@@ -6,8 +6,10 @@ public class Objective : Observer
 {
 
     private bool isComplete;
+    [SerializeField] private bool isOptional;
     
     public bool IsComplete { get { return isComplete; } }
+    public bool IsOptional { get { return isOptional; } }
 
     public virtual string Name { get { return "Objective"; } }
 
