@@ -13,14 +13,9 @@ public class CameraMovement : MonoBehaviour
     void Start()
     {
         cam = Camera.main;
+        // Automatically calculate distance to move cam based on size
         yMoveDist = cam.orthographicSize * 2;
         xMoveDist = Mathf.Ceil(yMoveDist * cam.aspect);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     ///<summary>

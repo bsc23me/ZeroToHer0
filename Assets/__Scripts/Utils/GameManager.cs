@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private GameObject winScreen;
-    [SerializeField] private GameObject cam;
 
     private void Awake()
     {
@@ -55,8 +54,4 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0f;
     }
 
-    public void MoveCamera(Vector2 direction)
-    {
-        cam.GetComponent<CameraMovement>().Move(direction);
-    }
 }

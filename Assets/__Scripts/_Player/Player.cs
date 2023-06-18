@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
             Shoot();
     }
 
+    // fires a bullet
+    // will be abstracted to a separate class gun : weapon
     void Shoot()
     {
         canFire = false;
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
         Invoke("CanFire", fireRate);
     }
 
+    // resets shooting
     void CanFire()
     {
         canFire = true;
@@ -47,13 +50,16 @@ public class Player : MonoBehaviour
 
     void OnBecameInvisible()
     {
+        // Camera Movement
+        // Initialization
         Vector2 direction = Vector2.zero;
         Vector3 pos = transform.position;
         Vector3 camPos = cam.transform.position;
+        // if the player left through the side or top/bottom
         if (Mathf.Abs(pos.x - camPos.x) > Mathf.Abs(pos.y - camPos.y))
-            direction.x = Mathf.Sign(pos.x - camPos.x);
+            direction.x = Mathf.Sign(pos.x - camPos.x); // move left/right
         else
-            direction.y = Mathf.Sign(pos.y - camPos.y);
+            direction.y = Mathf.Sign(pos.y - camPos.y); // move up/down
         cam.GetComponent<CameraMovement>().Move(direction);
     }
 
