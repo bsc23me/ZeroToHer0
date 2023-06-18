@@ -32,10 +32,15 @@ public class ObjectiveTracker : MonoBehaviour
 
     void SetText()
     {
+        
         for(int i = 0; i < objectives.Count; i++)
         {
+            string t = "";
             SetFont(i);
-            objectiveText[i].text = $"{objectives[i].Name}\n";
+            if (objectives[i].IsOptional)
+                t += "\t";
+            t += $"{objectives[i].Name}\n";
+            objectiveText[i].text = t;
         }
     }
 
