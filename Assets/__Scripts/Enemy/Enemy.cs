@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Movement)),RequireComponent(typeof(Health))]
-public class Enemy : MonoBehaviour
+public class Enemy : Subject
 {
     private Movement movement;
     private GameObject player;
@@ -16,9 +16,10 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        base.Start();
         canAttack = true;
         movement = GetComponent<Movement>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.Player;
     }
 
     // Update is called once per frame
@@ -31,7 +32,10 @@ public class Enemy : MonoBehaviour
             Attack();
 
         if (GetComponent<Health>().Dead)
+        {
+            NotifyObservers();
             Destroy(gameObject);
+        }
     }
 
     void Attack()

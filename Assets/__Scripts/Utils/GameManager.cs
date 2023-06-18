@@ -29,10 +29,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject loseScreen;
     [SerializeField] private GameObject winScreen;
+    private GameObject player;
+
+    public GameObject Player { get { return player; } }
+
+    [SerializeField] private List<Objective> objectives;
+
+    public List<Objective> Objectives { get { return objectives; } }
 
     private void Awake()
     {
         Instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Start is called before the first frame update
@@ -40,6 +48,18 @@ public class GameManager : MonoBehaviour
     {
         loseScreen.SetActive(false);
         winScreen.SetActive(false);
+    }
+
+    public void ClearObjective(Objective objective)
+    {
+        if (objectives.Contains(objective))
+            objectives.Remove(objective);
+    }
+
+    private void Update()
+    {
+        if (objectives.Count <= 0)
+            Win();
     }
 
     public void Win()

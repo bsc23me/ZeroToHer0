@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Holdout : MonoBehaviour
+public class Holdout : Objective
 {
 
     [SerializeField] private float duration = 60f;
 
     private float count;
+
+    public override string Name { get { return $"Holdout Time Remaining: {count:0.0}"; } }
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +21,7 @@ public class Holdout : MonoBehaviour
     void Update()
     {
         if (count < 0)
-            GameManager.Instance.Win();
+            Complete();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
