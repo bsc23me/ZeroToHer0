@@ -19,7 +19,7 @@ public class Objective : Observer
     protected void Complete()
     {
         isComplete = true;
-        GameManager.Instance.ClearObjective(this);
+        GameManager.Instance.ClearObjective();
     }
 
 }

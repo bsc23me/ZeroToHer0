@@ -50,16 +50,14 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(false);
     }
 
-    public void ClearObjective(Objective objective)
+    public void ClearObjective()
     {
-        if (objectives.Contains(objective))
-            objectives.Remove(objective);
-    }
-
-    private void Update()
-    {
-        if (objectives.Count <= 0)
-            Win();
+        foreach(Objective obj in objectives)
+        {
+            if (!obj.IsComplete)
+                return;
+        }
+        Win();
     }
 
     public void Win()
