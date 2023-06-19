@@ -16,8 +16,5 @@ public class Observer : MonoBehaviour
         
     }
 
-    public virtual void Notify()
-    {
-
-    }
+    public virtual void Notify() { }
 }

@@ -20,23 +20,14 @@ public class ElimObjective : Objective
         {
             enemies = transform.childCount;
             foreach (Enemy e in transform.GetComponentsInChildren<Enemy>())
-            {
-                if (e == null)
-                    Debug.LogError("E is NULl");
-                else if (this == null)
-                    Debug.LogError("This is NULL");
-                else
-                    e.Attach(this);
-            }
+                e.Attach(this);
         }
         else if (type == ElimType.ALL)
         {
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
             enemies = list.Length;
             foreach (GameObject o in list)
-            {
                 o.GetComponent<Enemy>().Attach(this);
-            }
         }
         killed = 0;
     }

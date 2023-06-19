@@ -14,7 +14,7 @@ public class Enemy : Subject
     private float attackRate = 2f;
 
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
         base.Start();
         canAttack = true;
@@ -48,8 +48,5 @@ public class Enemy : Subject
         }
     }
 
-    void CanAttack()
-    {
-        canAttack = true;
-    }
+    void CanAttack() => canAttack = true;
 }

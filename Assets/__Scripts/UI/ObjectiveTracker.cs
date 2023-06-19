@@ -50,7 +50,8 @@ public class ObjectiveTracker : MonoBehaviour
         {
             objectiveText[i].color = Color.green;
             objectiveText[i].fontStyle = FontStyles.Strikethrough;
-        }else if (objectives[i].IsOptional)
+        }
+        else if (objectives[i].IsOptional)
         {
             objectiveText[i].color = Color.gray;
             objectiveText[i].fontStyle = FontStyles.Italic;

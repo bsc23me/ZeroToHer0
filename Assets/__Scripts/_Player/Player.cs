@@ -37,9 +37,6 @@ public class Player : MonoBehaviour
         Invoke("CanFire", fireRate);
     }
 
-    void CanFire()
-    {
-        canFire = true;
-    }
+    void CanFire() => canFire = true;
 
 }
