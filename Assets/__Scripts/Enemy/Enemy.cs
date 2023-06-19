@@ -14,9 +14,8 @@ public class Enemy : Subject
     private float attackRate = 2f;
 
     // Start is called before the first frame update
-    override protected void Start()
+    protected void Start()
     {
-        base.Start();
         canAttack = true;
         movement = GetComponent<Movement>();
         player = GameManager.Instance.Player;
