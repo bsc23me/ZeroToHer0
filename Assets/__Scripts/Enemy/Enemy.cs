@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(Movement)),RequireComponent(typeof(Health))]
+public class Enemy : Subject
 {
     private Movement movement;
     private GameObject player;
@@ -13,11 +14,12 @@ public class Enemy : MonoBehaviour
     private float attackRate = 2f;
 
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         canAttack = true;
         movement = GetComponent<Movement>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.Player;
     }
 
     // Update is called once per frame
@@ -30,7 +32,10 @@ public class Enemy : MonoBehaviour
             Attack();
 
         if (GetComponent<Health>().Dead)
+        {
+            NotifyObservers();
             Destroy(gameObject);
+        }
     }
 
     void Attack()
@@ -43,8 +48,5 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void CanAttack()
-    {
-        canAttack = true;
-    }
+    void CanAttack() => canAttack = true;
 }
