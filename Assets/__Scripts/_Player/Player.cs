@@ -42,11 +42,7 @@ public class Player : MonoBehaviour
         Invoke("CanFire", fireRate);
     }
 
-    // resets shooting
-    void CanFire()
-    {
-        canFire = true;
-    }
+    void CanFire() => canFire = true;
 
     void OnBecameInvisible()
     {
