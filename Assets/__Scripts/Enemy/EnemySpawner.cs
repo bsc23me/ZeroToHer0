@@ -16,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         canSpawn = true;
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameManager.Instance.Player;
     }
 
     void Update()
@@ -40,8 +40,6 @@ public class EnemySpawner : MonoBehaviour
         Invoke("CanSpawn", Random.value*2+1);
     }
 
-    private void CanSpawn()
-    {
-        canSpawn = true;
-    }
+    private void CanSpawn() => canSpawn = true;
+
 }
