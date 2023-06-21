@@ -16,20 +16,28 @@ public class ElimObjective : Objective
     // Start is called before the first frame update
     void Start()
     {
+        SetupEnemies();
+        killed = 0;
+    }
+
+    /// <summary>
+    /// Sets which enemies are counted for the elimination objective
+    /// </summary>
+    private void SetupEnemies()
+    {
         if (type == ElimType.CHILD)
         {
             enemies = transform.childCount;
             foreach (Enemy e in transform.GetComponentsInChildren<Enemy>())
-                e.Attach(this);
+                e.Attach(this); // attach this objective to the enemy subject
         }
         else if (type == ElimType.ALL)
         {
             GameObject[] list = GameObject.FindGameObjectsWithTag("Enemy");
             enemies = list.Length;
             foreach (GameObject o in list)
-                o.GetComponent<Enemy>().Attach(this);
+                o.GetComponent<Enemy>().Attach(this); // attach this objective to the enemy subject
         }
-        killed = 0;
     }
 
     public override void Notify()

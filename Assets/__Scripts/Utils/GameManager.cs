@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance;
 
+    // Singleton
     public static GameManager Instance
     {
         get
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviour
         winScreen.SetActive(false);
     }
 
+    /// <summary>
+    /// Checkes whether all objectives are complete and ends the game if so
+    /// </summary>
     public void ClearObjective()
     {
         foreach(Objective obj in objectives)
