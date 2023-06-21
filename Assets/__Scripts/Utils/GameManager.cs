@@ -71,4 +71,5 @@ public class GameManager : MonoBehaviour
         loseScreen.SetActive(true);
         Time.timeScale = 0f;
     }
+
 }

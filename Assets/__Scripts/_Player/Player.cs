@@ -12,21 +12,26 @@ public class Player : MonoBehaviour
 
     bool canFire;
 
+    private Camera cam;
+
     // Start is called before the first frame update
     void Start()
     {
         movement = GetComponent<Movement>();
         canFire = true;
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement.Move(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")) * Time.deltaTime);
+        movement.Move(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
         if (Input.GetAxisRaw("Fire1") > 0 && canFire)
             Shoot();
     }
 
+    // fires a bullet
+    // will be abstracted to a separate class gun : weapon
     void Shoot()
     {
         canFire = false;
@@ -38,5 +43,20 @@ public class Player : MonoBehaviour
     }
 
     void CanFire() => canFire = true;
+
+    void OnBecameInvisible()
+    {
+        // Camera Movement
+        // Initialization
+        Vector2 direction = Vector2.zero;
+        Vector3 pos = transform.position;
+        Vector3 camPos = cam.transform.position;
+        // if the player left through the side or top/bottom
+        if (Mathf.Abs(pos.x - camPos.x) > Mathf.Abs(pos.y - camPos.y))
+            direction.x = Mathf.Sign(pos.x - camPos.x); // move left/right
+        else
+            direction.y = Mathf.Sign(pos.y - camPos.y); // move up/down
+        cam.GetComponent<CameraMovement>().Move(direction);
+    }
 
 }
