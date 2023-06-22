@@ -19,11 +19,11 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Player")
         {
             collision.gameObject.GetComponent<Health>().Damage(Constants.bulletDamage);
-            Destroy(gameObject);
         }
+        Destroy(gameObject);
     }
 
     private void OnBecameInvisible()
