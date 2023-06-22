@@ -2,16 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Movement)),RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Movement)), RequireComponent(typeof(Health))]
 public class Enemy : Subject
 {
-    private Movement movement;
-    private GameObject player;
-    [SerializeField] private float meleeDist = 2f;
-    [SerializeField] private float meleeDamage = 20f;
+    protected Movement movement;
+    protected GameObject player;
+    [SerializeField] protected float meleeDist = 2f;
+    [SerializeField] protected float damage = 20f;
+    [SerializeField] protected float viewDist = 20f;
+    [SerializeField] protected float viewOffset = 1f;
 
-    private bool canAttack;
-    private float attackRate = 2f;
+    protected bool canAttack;
+    protected float attackRate = 2f;
 
     // Start is called before the first frame update
     protected void Start()
@@ -22,14 +24,8 @@ public class Enemy : Subject
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        Vector3 target = player.transform.position - transform.position;
-        if (target.magnitude > meleeDist)
-            movement.Move(target.normalized);
-        else
-            Attack();
-
         if (GetComponent<Health>().Dead)
         {
             NotifyObservers();
@@ -37,14 +33,25 @@ public class Enemy : Subject
         }
     }
 
-    void Attack()
+    protected virtual void Attack()
     {
-        if (canAttack)
+        canAttack = false;
+        Invoke("CanAttack", attackRate);
+    }
+
+    protected bool CanSeePlayer()
+    {
+        Vector3 target = (player.transform.position - transform.position).normalized;
+        float dist = Vector3.Distance(player.transform.position, transform.position);
+        if (dist < viewDist)
         {
-            canAttack = false;
-            player.GetComponent<Health>().Damage(meleeDamage);
-            Invoke("CanAttack", attackRate);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + target * viewOffset, target, viewDist, 65);
+            if (hit.collider != null && hit.collider.tag == "Player")
+            {
+                return true;
+            }
         }
+        return false;
     }
 
     void CanAttack() => canAttack = true;

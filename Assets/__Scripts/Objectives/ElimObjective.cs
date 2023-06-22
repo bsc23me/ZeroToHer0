@@ -8,7 +8,7 @@ public class ElimObjective : Objective
 {
 
     [SerializeField] private int enemies = 0;
-    [SerializeField] private ElimType type = ElimType.NUMBER;
+    [SerializeField] private ElimType type = ElimType.CHILD;
     private int killed = 0;
     
     public override string Name { get { return $"Kill Enemies: {killed}/{enemies}"; } }
