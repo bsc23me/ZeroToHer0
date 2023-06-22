@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Movement)),RequireComponent(typeof(Health))]
+[RequireComponent(typeof(Movement)), RequireComponent(typeof(Health))]
 public class Enemy : Subject
 {
     protected Movement movement;
@@ -35,8 +35,8 @@ public class Enemy : Subject
 
     protected virtual void Attack()
     {
-            canAttack = false;
-            Invoke("CanAttack", attackRate);
+        canAttack = false;
+        Invoke("CanAttack", attackRate);
     }
 
     protected bool CanSeePlayer()
@@ -45,7 +45,7 @@ public class Enemy : Subject
         float dist = Vector3.Distance(player.transform.position, transform.position);
         if (dist < viewDist)
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position + target * viewOffset, target,viewDist,65);
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + target * viewOffset, target, viewDist, 65);
             if (hit.collider != null && hit.collider.tag == "Player")
             {
                 return true;
