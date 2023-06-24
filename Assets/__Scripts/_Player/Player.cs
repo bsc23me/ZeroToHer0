@@ -8,9 +8,9 @@ public class Player : MonoBehaviour
     private Movement movement;
     [SerializeField] private GameObject bullet;
     [SerializeField] private float bulletSpeed = 20f;
-    [SerializeField] private float fireRate = 0.2f;
+    [SerializeField] private float attackRate = 0.2f;
 
-    bool canFire;
+    bool canAttack;
 
     private Camera cam;
 
@@ -18,15 +18,15 @@ public class Player : MonoBehaviour
     void Start()
     {
         movement = GetComponent<Movement>();
-        canFire = true;
+        canAttack = true;
         cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement.Move(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")));
-        if (Input.GetAxisRaw("Fire1") > 0 && canFire)
+        movement.Move(new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized);
+        if (Input.GetAxisRaw("Fire1") > 0 && canAttack)
             Shoot();
     }
 
@@ -34,15 +34,15 @@ public class Player : MonoBehaviour
     // will be abstracted to a separate class gun : weapon
     void Shoot()
     {
-        canFire = false;
+        canAttack = false;
         Vector3 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
         direction.z = 0;
         GameObject b = Instantiate(bullet, transform.position, Quaternion.identity);
         b.GetComponent<Rigidbody2D>().velocity = direction.normalized * bulletSpeed;
-        Invoke("CanFire", fireRate);
+        Invoke("CanAttack", attackRate);
     }
 
-    void CanFire() => canFire = true;
+    void CanAttack() => canAttack = true;
 
     void OnBecameInvisible()
     {
